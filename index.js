@@ -1,14 +1,15 @@
-require('dotenv').config()
 const express=require('express')
+const pool = require('./pool')
 
 const app=express()
 
 app.use(express.json())
 
-app.get('/',(req,res)=>{
-    res.json("ola")
+app.get('/',async (req,res)=>{
+    const {rows}=await pool.query('select * from carro')
+    res.json(rows)
 })
 
 app.listen(3000,()=>{
-    console.log('nada');
+    console.log('nada 2');
 })
